@@ -70,7 +70,7 @@ public class StepDefinition {
 						.extract()
 						.path("routes[0].legs[0].duration.text")
 						;
-	   System.out.println(String.format("time - %s and distance - %s", time, distance));
+	   System.out.println(String.format("time - %s and distance - %s for %s", time, distance,itenry));
 	 //  verify.compareResults(itenry,time, distance);
 	 
 	   
