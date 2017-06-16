@@ -1,0 +1,19 @@
+@tag1
+Feature:  Go to website and obtain miles and minutes between the two places
+
+Scenario: Calculate disctance and duration of travel 
+
+
+    
+    Given Open  maps.google.com website
+    When Provide Origin and Destination
+   
+|Origin|Destination|
+|San Francisco, CA 94102 | San Francisco, CA 94104|
+|New York, NY 10037 | New York, NY 10036|
+    
+    Then Obtain miles and minutes 
+
+   
+      
+   

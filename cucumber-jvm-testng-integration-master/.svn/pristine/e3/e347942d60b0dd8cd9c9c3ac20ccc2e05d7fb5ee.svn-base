@@ -1,0 +1,99 @@
+package com.restassured.testng.examples;
+
+import java.util.ArrayList;
+
+import junit.framework.Assert;
+
+import org.testng.annotations.Test;
+
+import com.jayway.restassured.RestAssured;
+import com.jayway.restassured.http.ContentType;
+import com.jayway.restassured.response.Response;
+
+
+public class GoogleMapsApiTest {
+	
+	@Test
+	public void getTravelInfo()
+	{	RestAssured
+				.given()
+				.param("origin","75+9th+Ave+New+York,+NY3")
+				.param("destination","MetLife+Stadium+1+MetLife+Stadium+Dr+East+Rutherford,+NJ+07073")
+				.param("key", "AIzaSyC5U-682RRt5O4fWl1ySakiAdq9Wb8hloA")
+				.header("Accept", "application/json")
+				.when()
+				.get("https://maps.googleapis.com/maps/api/directions/json")
+				.then()
+				.assertThat()
+				.statusCode(200);
+
+	}
+	@Test
+	public void getTravelInfo1()
+	{
+				Response resp = RestAssured
+						.given()
+				.param("origin","San Francisco, CA 94102")
+				.param("destination","San Francisco, CA 94104 ")
+				.param("key", "AIzaSyC5U-682RRt5O4fWl1ySakiAdq9Wb8hloA")
+				.param("mode", "driving")
+				.header("Accept", "application/json")
+				.when()
+				.get("https://maps.googleapis.com/maps/api/directions/json")
+				;
+Assert.assertEquals(resp.getStatusCode(), 200 );
+System.out.println(""+resp.asString());
+
+
+//$.routes.0.legs.0.distance.text
+//$.routes.0.legs.0.duration.text
+
+	}
+	
+	@Test
+	public void getTravelInfo2()
+	{
+	
+		Response resp=RestAssured
+				.given()
+				.param("origin","San Francisco, CA 94102")
+				.param("destination","San Francisco, CA 94104 ")
+				.param("key", "AIzaSyC5U-682RRt5O4fWl1ySakiAdq9Wb8hloA")
+				.param("mode", "driving")
+				.header("Accept", "application/json")
+				.when()
+				.get("https://maps.googleapis.com/maps/api/directions/json")
+			/*	.then()
+				.assertThat()
+				.statusCode(200)*/
+				;
+		System.out.println("***"+resp.asString());
+		
+	//	ArrayList distance= 
+		String distance=
+				resp
+				.then()
+				.contentType(ContentType.JSON)
+				.extract()
+				.path("routes.0.legs.0.distance.text")
+				.toString()
+				;
+		System.out.println("::printing ::"+distance);
+				
+		/*String time = 
+						resp
+						.then()
+						.contentType(ContentType.JSON)
+						.extract()
+						.path("routes.0.legs.0.duration.text")
+						;
+			//	System.out.println("time::"+time+"distance::"+distance);
+			;*/
+
+//System.out.println(" result :: "+result);
+
+//$.routes.0.legs.0.distance.text
+//$.routes.0.legs.0.duration.text
+
+	}
+}

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="0" total="1" passed="1">
+  <reporter-output>
+  </reporter-output>
+  <suite name="Default suite" duration-ms="65838" started-at="2017-06-16T01:05:32Z" finished-at="2017-06-16T01:06:38Z">
+    <groups>
+      <group name="cucumber">
+        <method signature="ExecuteTest.feature(cucumber.api.testng.CucumberFeatureWrapper)[pri:0, instance:com.cucumber.testng.combination.ExecuteTest@5a8e6209]" name="feature" class="com.cucumber.testng.combination.ExecuteTest"/>
+      </group> <!-- cucumber -->
+    </groups>
+    <test name="Default test" duration-ms="65838" started-at="2017-06-16T01:05:32Z" finished-at="2017-06-16T01:06:38Z">
+      <class name="com.cucumber.testng.combination.ExecuteTest">
+        <test-method status="PASS" signature="setUpClass()[pri:0, instance:com.cucumber.testng.combination.ExecuteTest@5a8e6209]" name="setUpClass" is-config="true" duration-ms="702" started-at="2017-06-15T20:05:32Z" finished-at="2017-06-15T20:05:33Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUpClass -->
+        <test-method status="PASS" signature="feature(cucumber.api.testng.CucumberFeatureWrapper)[pri:0, instance:com.cucumber.testng.combination.ExecuteTest@5a8e6209]" name="feature" duration-ms="64681" started-at="2017-06-15T20:05:33Z" description="Runs Cucumber Feature" data-provider="features" finished-at="2017-06-15T20:06:38Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[Find miles and minutes between the two locations]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- feature -->
+        <test-method status="PASS" signature="tearDownClass()[pri:0, instance:com.cucumber.testng.combination.ExecuteTest@5a8e6209]" name="tearDownClass" is-config="true" duration-ms="222" started-at="2017-06-15T20:06:38Z" finished-at="2017-06-15T20:06:38Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDownClass -->
+      </class> <!-- com.cucumber.testng.combination.ExecuteTest -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
+</testng-results>

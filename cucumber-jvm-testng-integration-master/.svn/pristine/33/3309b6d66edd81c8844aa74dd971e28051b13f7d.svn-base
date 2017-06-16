@@ -1,0 +1,135 @@
+package com.cucumber.testng.examples;
+
+import static org.testng.AssertJUnit.assertEquals;
+
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
+import com.gargoylesoftware.htmlunit.WebClient;
+import com.gargoylesoftware.htmlunit.javascript.JavaScriptEngine;
+
+//import cucumber.api.DataTable;
+//import cucumber.api.DataTable;
+import cucumber.api.Scenario;
+import cucumber.api.java.After;
+import cucumber.api.java.Before;
+import cucumber.api.java.en.Given;
+import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
+
+
+public class BaseStepDefs {
+	 public WebDriver driver;
+	 
+    @Before
+    public void before(Scenario scenario) {
+        scenario.getId();
+        System.out.println("This is before Scenario: " + scenario.getName().toString());
+        driver = SeleniumWebDriver.driver;
+    }
+
+    @After
+    public void after(Scenario scenario) {
+        System.out.println("This is after Scenario: " + scenario.getName().toString());
+    }
+
+ 
+
+// SeleniumWebDriver superDriver = new SeleniumWebDriver();
+    
+   /* public BaseStepDefs()
+    {
+    //	driver = SeleniumWebDriver.driver;
+    	
+    	 
+    }*/
+    
+    @Given("^Open  maps.google.com website$")
+    public void openUrl() throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        driver.get("https://maps.google.com");
+      //  superDriver.explicitWait();
+        
+    }
+
+   /* @When("^Provide Origin and Destination$")
+    public void enterLocationDeatils(DataTable table) throws Throwable {
+    	
+    	List<List<String>> data = table.raw();
+    	int rowCount = data.size();
+    	System.out.println("Number of row ::"+rowCount);
+    	WebElement directions =driver.findElement(By.id(PageObjects.directionsIcon));
+    	directions.click();
+    	
+    	WebElement source = driver.findElement(By.xpath(PageObjects.source));
+    	System.out.println("setting source as ::" +data.get(1).get(0) );
+    	source.sendKeys(data.get(1).get(0));
+    	
+    	WebElement destination = driver.findElement(By.xpath(PageObjects.destination));
+    	System.out.println("setting destination as ::" +data.get(1).get(1) );
+    	destination.sendKeys(data.get(1).get(1));
+    	source.sendKeys(Keys.ENTER);
+    
+    	
+    }*/
+   // @When("^Provide \"([^"]*)"\ and \"([^"]*)"\$")
+   // @When("^Provide \"(.*?)\" and \"(.*?)\"$")
+    @When("^Provide ([^\"]*) and ([^\"]*)$")
+   // @When("^Provide Origin and Destination$")
+    public void enterLocationDeatils(String a, String b) throws Throwable {
+    	
+    	/*Set<Entry<String, String>> set = locationDetails.entrySet();
+    	   Iterator<Entry<String, String>> it = set.iterator(); 
+    	   it.next();
+    	   while(it.hasNext())
+    	   { 
+    		 //  it.next();
+    	Entry<String, String> next = it.next();
+    	   System.out.println(next.getKey()); System.out.println(next.getValue());*/
+    	   
+    	   
+    	   
+    	   
+        
+    //	List<List<String>> data = table.raw();
+    //	int rowCount = data.size();
+    //	System.out.println("Number of row ::"+rowCount);
+    	WebElement directions =driver.findElement(By.id(PageObjects.directionsIcon));
+    	directions.click();
+    	
+    	WebElement source = driver.findElement(By.xpath(PageObjects.source));
+    	System.out.println("setting source as ::" +a );
+    	source.sendKeys(a);
+    	
+    	WebElement destination = driver.findElement(By.xpath(PageObjects.destination));
+    	System.out.println("setting destination as ::" +b );
+    	destination.sendKeys(b);
+    	source.sendKeys(Keys.ENTER);
+    //    }
+    }
+    
+	@Then("^Obtain miles and minutes$")
+	public void extractTraveInfo() throws Throwable {
+
+		WebElement car = driver.findElement(By.xpath(PageObjects.drive));
+		if (car.isDisplayed()) {
+			
+			WebElement distance = driver.findElement(By.xpath(PageObjects.distance));
+			String dist = distance.getText();
+			System.out.println(""+" "+dist);
+			WebElement time = driver.findElement(By.xpath(PageObjects.time));
+			String travelTime = time.getText();
+			System.out.println(""+" "+time);
+
+		}
+	}
+}
