@@ -15,19 +15,14 @@ import cucumber.api.java.en.When;
 
 public class StepDefinition {
 	
-//	ResultValidation verify = new ResultValidation();
-	
-	Response resp;
-	RequestSpecification req;
-//	TestContext context = new TestContext();
-//	DetailedResults result = new DetailedResults();
-	static String itenry;
+	private Response resp;
+	private RequestSpecification req;
+	private static String itenry;
 	
 	
 	  @Given("^Construct get Request for ([^\"]*) to ([^\"]*) in ([^\"]*)$")
 	public void createRequest( String origin, String destn, String itnry)
 	{
-		System.out.println("Entering given");
 		resp = RestAssured
 		.given()
 		.param("key", "AIzaSyC5U-682RRt5O4fWl1ySakiAdq9Wb8hloA")
@@ -48,7 +43,6 @@ public class StepDefinition {
 	@When("^Validate Response$")
 	public void checkResponse()
 	{
-		System.out.println("Entering when");	
 		resp
 		.then()
 		.assertThat()
@@ -59,7 +53,6 @@ public class StepDefinition {
 	@Then("^Extract value of Time and Distance of travel$")
 	public void extractResults()
 	{
-		System.out.println("Entering then");
 		String distance=
 				resp
 				.then()
@@ -77,7 +70,7 @@ public class StepDefinition {
 						.extract()
 						.path("routes[0].legs[0].duration.text")
 						;
-	   System.out.println(String.format("time - %s and distance - %s", time, distance));
+	   System.out.println(String.format("time - %s and distance - %s for %s", time, distance,itenry));
 	 //  verify.compareResults(itenry,time, distance);
 	 
 	   

@@ -14,7 +14,7 @@ import cucumber.api.testng.AbstractTestNGCucumberTests;
 
 @CucumberOptions(features = "src/test/resources/com.cucumber.testng.examples/merged.feature",
 glue="com.cucumber.testng.ui, com.cucumber.testng.api",
-tags = "@tag",
+tags = "@tag1, @tag2",
 format = { "pretty",
         "html:target/site/cucumber-pretty",
         "rerun:target/rerun.txt",

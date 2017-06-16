@@ -17,10 +17,12 @@ import com.cucumber.testng.utility.TestNGExecutionListener;
 
 @Listeners({TestNGExecutionListener.class})
 @CucumberOptions(
-        features = "src/test/resources/com.cucumber.testng.examples/merged.feature",
+        
+		features = "src/test/resources/com.cucumber.testng.examples/merged.feature",
         glue = "com.cucumber.testng.combination",
-        tags = "@tag",
+        tags = "@tag1, @tag2",
         plugin = "json:target/cucumber.json")
+
 public class ExecuteTest {
     private TestNGCucumberRunner testNGCucumberRunner;
 
