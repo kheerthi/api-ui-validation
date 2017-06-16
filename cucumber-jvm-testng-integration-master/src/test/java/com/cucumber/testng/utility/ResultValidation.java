@@ -10,7 +10,7 @@ public class ResultValidation {
 	public void compareResults(String itnry, String Time, String Distance)
 	{
 		System.out.println();
-		System.out.println("---------------------------------*Results*-----------------------------------------");
+		System.out.println("---------------------------------Results-----------------------------------------");
 		System.out.println();
 		DetailedResults resultObject = (DetailedResults) TestContext.get(itnry);
 		

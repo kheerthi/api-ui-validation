@@ -2,13 +2,20 @@ package com.cucumber.testng.ui;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
+import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 
 import com.cucumber.testng.utility.DetailedResults;
+import com.cucumber.testng.utility.PropertiesConfig;
 import com.cucumber.testng.utility.TestContext;
 import com.jayway.restassured.RestAssured;
 
@@ -28,27 +35,49 @@ import cucumber.api.java.en.When;
 public class StepDefs {
 	 public WebDriver driver;
 	 
-   /* @Before
-    public void before(Scenario scenario) {
-        scenario.getId();
-        System.out.println("This is before Scenario: " + scenario.getName().toString());
-        driver = SeleniumWebDriver.driver;
-    }
+	 private static final String PROP_CONFIG_FILE = "config/app-config.properties";
 
-    @After
-    public void after(Scenario scenario) {
-        System.out.println("This is after Scenario: " + scenario.getName().toString());
-    }*/
+		private static final String CHROME_DRIVE_PATH_KEY = "chromedriver.location";
+	 
+	 @Before("@tag1")
+	    public void before(Scenario scenario) {
+	        System.out.println("This is before Webdriver Scenario: " + scenario.getName().toString());
+	        PropertiesConfig propConfig = new PropertiesConfig();
+			Properties prop = propConfig.load(PROP_CONFIG_FILE);
+			System.setProperty("webdriver.chrome.driver",prop.getProperty(CHROME_DRIVE_PATH_KEY));
+		
+	    	System.out.println("Call openBrowser");
+			driver = new ChromeDriver();
+			driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
+	    	driver.manage().deleteAllCookies();
+	    	driver.manage().window().maximize();
+	    }
+
+	    @After("@tag1")
+	    public void after(Scenario scenario) {
+	        System.out.println("This is after Webdriver Scenario: " + scenario.getName().toString());
+	        if(scenario.isFailed()) {
+		        try {
+		        	 scenario.write("Current Page URL is " + driver.getCurrentUrl());
+		            byte[] screenshot = ((TakesScreenshot)driver).getScreenshotAs(OutputType.BYTES);
+		            scenario.embed(screenshot, "image/png");
+		        } catch (WebDriverException somePlatformsDontSupportScreenshots) {
+		            System.err.println(somePlatformsDontSupportScreenshots.getMessage());
+		        }
+		        
+		        }
+	        driver.quit();
+	    }
+	    
+	    
 
  
 DetailedResults result = new DetailedResults();
 
-//com.cucumber.testng.utility.TestContext TestContext = new com.cucumber.testng.utility.TestContext();
     
     
     @Given("^Open website$")
     public void openUrl() throws Throwable {
-    	driver = SeleniumWebDriver.driver;
         driver.get("https://maps.google.com");
       
         
@@ -72,7 +101,6 @@ DetailedResults result = new DetailedResults();
     	source.sendKeys(Keys.ENTER);
     	result.setItenary(itnry);
     	
-    //    }
     }
     
 	@Then("^Obtain miles and minutes$")
