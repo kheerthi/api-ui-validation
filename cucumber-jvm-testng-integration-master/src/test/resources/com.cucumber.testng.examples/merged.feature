@@ -1,6 +1,8 @@
-@tag
+#@tag
 Feature: Find miles and minutes between the two locations
+
 Scenario: 1
+@tag1
   Scenario Outline: Calculate distance and duration of travel
     Given Open website
     When Provide <Origin> and <Destination> for <Itinerary>
@@ -11,7 +13,7 @@ Scenario: 1
       | San Francisco, CA 94102 | San Francisco, CA 94104 | Itinerary1 |
       | New York, NY 10037      | New York, NY 10036      | Itinerary2 |
  
-    
+@tag2    
   Scenario Outline: Calculate distance and duration of travel
   	Given Construct get Request for <Origin> to <Destination> in <Itenary>
  		When Validate Response
